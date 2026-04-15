@@ -18,24 +18,58 @@
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
 
         /* Cover & Profile Section */
-        .header { position: relative; background: var(--dark); height: 350px; }
+        .header { 
+            position: relative; 
+            background: var(--dark); 
+            height: 350px; 
+            overflow: hidden; /* Keeps the blur contained */
+        }
+
         .cover-photo { 
-            width: 100%; height: 100%; 
+            width: 100%; 
+            height: 100%; 
             background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            object-fit: cover; opacity: 0.8;
+            object-fit: cover; 
+            opacity: 0.9;
         }
+
+        /* The Fade & Blur Effect at the bottom of the banner */
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px; /* Height of the fade area */
+            background: linear-gradient(to bottom, transparent, var(--light));
+            backdrop-filter: blur(4px); /* Modern blur effect */
+            -webkit-backdrop-filter: blur(4px);
+        }
+
         .profile-container {
-            max-width: 1000px; margin: -100px auto 0; padding: 0 20px;
-            display: flex; align-items: flex-end; gap: 30px; position: relative;
+            max-width: 1000px; 
+            margin: -100px auto 0; 
+            padding: 0 20px;
+            display: flex; 
+            align-items: flex-end; 
+            gap: 30px; 
+            position: relative; 
+            z-index: 10; /* Ensures profile is above the header fade */
         }
+
         .profile-photo {
             width: 200px; height: 200px; border-radius: 50%;
             border: 5px solid white; background: #ddd;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
             object-fit: cover;
         }
+
         .profile-info { margin-bottom: 20px; }
-        .profile-info h1 { font-size: 2.5rem; color: var(--dark); }
+        .profile-info h1 { 
+            font-size: 2.5rem; 
+            color: var(--dark); 
+            text-shadow: 0px 0px 10px rgba(255,255,255,0.5); /* Subtle glow to help visibility */
+        }
         .profile-info p { color: var(--primary); font-weight: 600; font-size: 1.2rem; }
 
         /* Main Content */
@@ -51,7 +85,7 @@
         .section-title { font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .section-title i { color: var(--primary); }
 
-        /* BDAI Founder Section (Ref 11) */
+        /* BDAI Founder Section */
         .founder-card {
             background: linear-gradient(to right, #2563eb, #06b6d4);
             color: white; padding: 30px; border-radius: 15px; margin-bottom: 40px;
@@ -72,8 +106,9 @@
 
         @media (max-width: 768px) {
             .container { grid-template-columns: 1fr; }
-            .profile-container { flex-direction: column; align-items: center; text-align: center; }
+            .profile-container { flex-direction: column; align-items: center; text-align: center; margin-top: -80px; }
             .repo-grid { grid-template-columns: 1fr; }
+            .header::after { height: 100px; } /* Smaller fade for mobile */
         }
     </style>
 </head>
